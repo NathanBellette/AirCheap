@@ -32,6 +32,7 @@ class TicketItem extends Component{
                     <small>{departureTime}</small>
                 </span>
                 <span className="ticket-separator">
+                -
                 </span>
                   <span className="ticket-location">          
                   <strong>{ticket.segment[ticket.segment.length-1].destination}</strong>{' '}          

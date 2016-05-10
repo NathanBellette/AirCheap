@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom'; 
+import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
-import {Container} from 'flux/utils'; 
-import Autosuggest from 'react-autosuggest'; 
-import AirportStore from './stores/AirportStore'; 
-import RouteStore from './stores/RouteStore'; 
-import TicketStore from './stores/TicketStore'; 
+import {Container} from 'flux/utils';
+import Autosuggest from 'react-autosuggest-legacy';
+import AirportStore from './stores/AirportStore';
+import RouteStore from './stores/RouteStore';
+import TicketStore from './stores/TicketStore';
 import TicketItem from './components/TicketItem';
 import AirportActionCreators from './actions/AirportActionCreators';
 
@@ -45,9 +45,9 @@ class App extends Component{
     }
     
     render(){
-        
-        let ticketList = this.state.tickets.map((ticket) => (
-           <TicketItem key={ticket.id} ticket={ticket} /> 
+       
+        let ticketList = this.state.tickets.map((ticket)=>(
+            <TicketItem key={ticket.id} ticket={ticket} />
         ));
         return (
             <div>
@@ -60,10 +60,12 @@ class App extends Component{
                         <Autosuggest id='origin'
                                      suggestions = {this.getSuggestions.bind(this)}
                                      onSuggestionSelected={this.handleSelect.bind(this,'origin')}
-                                     inputAttributes={{placeholder:'From'}} />
+                                     value={this.state.origin}
+                                     nputAttributes={{placeholder:'From'}} />
                                      
                         <Autosuggest id='destination'
                                      suggestions = {this.getSuggestions.bind(this)}
+                                     value={this.state.destination}
                                      onSuggestionSelected={this.handleSelect.bind(this,'destination')}
                                      inputAttributes={{placeholder:'To'}} />
                     </div>
@@ -76,7 +78,7 @@ class App extends Component{
     }
 }
 
-App.getStores = () => ([AirportStore]);
+App.getStores = () => ([AirportStore, RouteStore,TicketStore]);
 App.calculateState = (prevState) => ({
    aiports: AirportStore.getState(),
    origin: RouteStore.get('origin'),
